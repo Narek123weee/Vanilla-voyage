@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vanilla Voyage — My Orders</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/x-icon" href="./img/Logo.png">
+  <style>
+    :root {
+      --espresso: #3b2314;
+      --mocha:    #8b5e3c;
+      --caramel:  #c9956a;
+      --honey:    #d4a84b;
+      --cream:    #f5ecd7;
+      --parchment:#faf6ee;
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body:    'Jost', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      background: var(--parchment);
+      color: var(--espresso);
+      min-height: 100vh;
+    }
+
+    /* ── Nav ── */
+    .orders-nav {
+      position: static;         /* override global nav { position: fixed } from style.css */
+      background: var(--espresso);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+    .orders-nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      color: var(--cream);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+    }
+    .orders-nav-logo span { color: var(--caramel); font-style: italic; }
+    .orders-nav-right { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+    .orders-nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .orders-nav-links a {
+      color: rgba(245,236,215,0.7);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .orders-nav-links a:hover { color: var(--cream); }
+    .orders-nav-links a.active { color: var(--caramel); }
+
+    /* Language switcher */
+    .nav-lang { display: flex; gap: 0.3rem; }
+    .nav-lang button {
+      background: none;
+      border: 1px solid rgba(245,236,215,0.25);
+      color: rgba(245,236,215,0.55);
+      border-radius: 4px;
+      padding: 0.15rem 0.45rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font-body);
+    }
+    .nav-lang button:hover { color: var(--cream); border-color: rgba(245,236,215,0.5); }
+    .nav-lang button.active { background: rgba(245,236,215,0.12); color: var(--cream); border-color: rgba(245,236,215,0.5); }
+
+    /* ── Hero ── */
+    .orders-hero {
+      background: linear-gradient(135deg, var(--espresso) 0%, #5c3520 100%);
+      padding: 3rem 2rem 2.5rem;
+      text-align: center;
+      color: var(--cream);
+    }
+    .orders-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+    }
+    .orders-hero p {
+      color: rgba(245,236,215,0.65);
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+    }
+    .orders-hero .user-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(245,236,215,0.1);
+      border: 1px solid rgba(245,236,215,0.2);
+      border-radius: 100px;
+      padding: 0.4rem 1rem;
+      font-size: 0.8rem;
+      margin-top: 1rem;
+      color: var(--cream);
+    }
+    .user-badge-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #7ecb8d;
+    }
+
+    /* ── Main ── */
+    .orders-main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    /* ── States ── */
+    .orders-loading, .orders-empty, .orders-login-prompt {
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+    .orders-loading .spinner {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: 3px solid rgba(139,94,60,0.2);
+      border-top-color: var(--caramel);
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 1.5rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .orders-empty svg, .orders-login-prompt svg {
+      width: 64px; height: 64px;
+      stroke: rgba(139,94,60,0.3);
+      margin: 0 auto 1.5rem;
+      display: block;
+    }
+    .state-title {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      color: var(--espresso);
+      margin-bottom: 0.6rem;
+    }
+    .state-sub {
+      font-size: 0.88rem;
+      color: var(--mocha);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    .btn-primary {
+      background: var(--espresso);
+      color: var(--cream);
+      border: none;
+      padding: 0.75rem 2rem;
+      border-radius: 100px;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--mocha); }
+
+    /* ── Order cards ── */
+    .orders-list { display: flex; flex-direction: column; gap: 1.2rem; }
+
+    .order-card {
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid rgba(139,94,60,0.12);
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+    .order-card:hover { box-shadow: 0 8px 32px rgba(59,35,20,0.08); }
+
+    .order-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 1.4rem;
+      border-bottom: 1px solid rgba(139,94,60,0.08);
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .order-id {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--espresso);
+    }
+    .order-meta {
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .order-date {
+      font-size: 0.75rem;
+      color: var(--mocha);
+      letter-spacing: 0.05em;
+    }
+    .order-total {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--espresso);
+    }
+
+    /* Status badge */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.85rem;
+      border-radius: 100px;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .status-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+    .status-PENDING    { background: #fff8e7; color: #b8860b; }
+    .status-PROCESSING { background: #e8f0fe; color: #3367d6; }
+    .status-SHIPPED    { background: #e6f4ea; color: #2e7d32; }
+    .status-DELIVERED  { background: #f3e5f5; color: #7b1fa2; }
+
+    /* Tracker */
+    .order-tracker {
+      padding: 1.2rem 1.4rem 0.4rem;
+    }
+    .tracker-steps {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      position: relative;
+      margin-bottom: 0.6rem;
+    }
+    .tracker-steps::before {
+      content: '';
+      position: absolute;
+      top: 11px; left: 11px; right: 11px;
+      height: 2px;
+      background: rgba(139,94,60,0.15);
+      z-index: 0;
+    }
+    .tracker-progress {
+      position: absolute;
+      top: 11px; left: 11px;
+      height: 2px;
+      background: linear-gradient(to right, var(--espresso), var(--caramel));
+      z-index: 1;
+      transition: width 0.6s ease;
+    }
+    .tracker-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      flex: 1;
+      position: relative;
+      z-index: 2;
+    }
+    .tracker-dot {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      border: 2px solid rgba(139,94,60,0.2);
+      background: #fff;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.3s;
+    }
+    .tracker-dot.done {
+      background: var(--espresso);
+      border-color: var(--espresso);
+    }
+    .tracker-dot.done svg { display: block; }
+    .tracker-dot svg {
+      width: 12px; height: 12px;
+      stroke: var(--cream);
+      display: none;
+    }
+    .tracker-dot.current {
+      border-color: var(--caramel);
+      box-shadow: 0 0 0 3px rgba(201,149,106,0.2);
+    }
+    .tracker-dot.current::after {
+      content: '';
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--caramel);
+    }
+    .tracker-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--mocha);
+      text-align: center;
+      line-height: 1.3;
+    }
+    .tracker-label.active { color: var(--espresso); font-weight: 500; }
+
+    /* Shipping info */
+    .order-shipping {
+      padding: 0.8rem 1.4rem 1rem;
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(139,94,60,0.08);
+      margin-top: 0.4rem;
+    }
+    .shipping-field { flex: 1; min-width: 140px; }
+    .shipping-field-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mocha);
+      margin-bottom: 0.2rem;
+    }
+    .shipping-field-value { font-size: 0.85rem; color: var(--espresso); }
+
+    /* Items */
+    .order-items-toggle {
+      padding: 0.5rem 1.4rem 1rem;
+    }
+    .toggle-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.75rem;
+      color: var(--mocha);
+      letter-spacing: 0.06em;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0;
+      transition: color 0.2s;
+      font-family: var(--font-body);
+    }
+    .toggle-btn:hover { color: var(--espresso); }
+    .toggle-arrow { transition: transform 0.2s; display: inline-block; }
+    .toggle-arrow.open { transform: rotate(180deg); }
+
+    .order-items-list {
+      padding: 0 1.4rem 1.2rem;
+      display: none;
+    }
+    .order-items-list.open { display: block; }
+    .order-item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid rgba(139,94,60,0.07);
+      gap: 1rem;
+    }
+    .order-item-row:last-child { border-bottom: none; }
+    .order-item-name { font-size: 0.87rem; color: var(--espresso); }
+    .order-item-qty  { font-size: 0.78rem; color: var(--mocha); }
+    .order-item-price{ font-size: 0.87rem; color: var(--espresso); font-weight: 500; }
+
+    @media (max-width: 600px) {
+      .order-card-header { flex-direction: column; align-items: flex-start; }
+      .orders-hero { padding: 2rem 1rem 1.8rem; }
+      .orders-main { padding: 1.5rem 1rem 3rem; }
+      .orders-nav { padding: 0.8rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="orders-nav">
+    <a href="index.html" class="orders-nav-logo">Vanilla <span>Voyage</span></a>
+    <div class="orders-nav-right">
+      <div class="orders-nav-links">
+        <a href="index.html" data-i18n="nav_home">Գլխավոր</a>
+        <a href="collection.html" data-i18n="nav_collection">Տեսականի</a>
+        <a href="orders.html" class="active" data-i18n="orders_nav_my_orders">Իմ պատվերները</a>
+        <a href="#" onclick="logout(); return false;" id="logoutLink" data-i18n="orders_nav_signout" style="color:rgba(245,236,215,0.5)">Ելք</a>
+      </div>
+      <div class="nav-lang">
+        <button class="lang-btn" data-lang="hy" onclick="I18N.set('hy')">ՀԱՅ</button>
+        <button class="lang-btn" data-lang="ru" onclick="I18N.set('ru')">РУС</button>
+        <button class="lang-btn" data-lang="en" onclick="I18N.set('en')">ENG</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="orders-hero">
+    <h1 data-i18n="orders_title">Իմ պատվերները</h1>
+    <p data-i18n="orders_subtitle">Հետևեք ձեր բույրի ճամփորդությանը</p>
+    <div class="user-badge" id="userBadge" style="display:none;">
+      <span class="user-badge-dot"></span>
+      <span id="userBadgeEmail"></span>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <main class="orders-main" id="ordersMain">
+
+    <div class="orders-loading" id="ordersLoading">
+      <div class="spinner"></div>
+      <p style="color:var(--mocha);font-size:0.85rem;" data-i18n="orders_loading">Բեռնվում է…</p>
+    </div>
+
+    <div class="orders-login-prompt" id="ordersLoginPrompt" style="display:none;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+        <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+      </svg>
+      <p class="state-title" data-i18n="orders_login_title">Մուտք գործեք</p>
+      <p class="state-sub" data-i18n="orders_login_sub">Մուտք գործեք Vanilla Voyage-ի ձեր հաշիվ՝ պատվերները դիտելու համար:</p>
+      <a href="login.html" class="btn-primary" data-i18n="login_btn">Մուտք</a>
+    </div>
+
+    <div class="orders-empty" id="ordersEmpty" style="display:none;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+        <path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6 5 2H2"/>
+        <circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/>
+      </svg>
+      <p class="state-title" data-i18n="orders_empty_title">Պատվերներ չկան</p>
+      <p class="state-sub" data-i18n="orders_empty_sub">Դուք դեռ չեք կատարել ոչ մի պատվեր։ Ծանոթացեք մեր բույրերի հավաքածուին:</p>
+      <a href="collection.html" class="btn-primary" data-i18n="nav_collection">Տեսականի</a>
+    </div>
+
+    <div class="orders-list" id="ordersList" style="display:none;"></div>
+
+  </main>
+
+  <script src="i18n.js"></script>
+  <script>
+    // ── Orders-specific i18n additions ───────────────
+    const ORDERS_EXTRA = {
+      hy: {
+        nav_home:              "Գլխավոր",
+        orders_nav_my_orders:  "Իմ պատվերները",
+        orders_nav_signout:    "Ելք",
+        orders_title:          "Իմ պատվերները",
+        orders_subtitle:       "Հետևեք ձեր բույրի ճամփորդությանը",
+        orders_loading:        "Բեռնվում է…",
+        orders_login_title:    "Մուտք գործեք",
+        orders_login_sub:      "Մուտք գործեք Vanilla Voyage-ի ձեր հաշիվ՝ պատվերների պատմությունը դիտելու համար:",
+        orders_empty_title:    "Պատվերներ չկան",
+        orders_empty_sub:      "Դուք դեռ չեք կատարել ոչ մի պատվեր: Ծանոթացեք մեր բույրերի հավաքածուին:",
+        orders_order_prefix:   "Պատվեր #",
+        orders_label_customer: "Հաճախորդ",
+        orders_label_phone:    "Հեռախոս",
+        orders_label_address:  "Հասցե",
+        orders_show_items:     "Ապրանքները",
+        orders_hide_items:     "Թաքցնել",
+        orders_status_PENDING:    "Ընդունված",
+        orders_status_PROCESSING: "Մշակվում է",
+        orders_status_SHIPPED:    "Ուղարկված",
+        orders_status_DELIVERED:  "Հասցված",
+      },
+      ru: {
+        nav_home:              "Главная",
+        orders_nav_my_orders:  "Мои заказы",
+        orders_nav_signout:    "Выйти",
+        orders_title:          "Мои заказы",
+        orders_subtitle:       "Отслеживайте путешествие вашего аромата",
+        orders_loading:        "Загрузка…",
+        orders_login_title:    "Войдите в аккаунт",
+        orders_login_sub:      "Войдите в свой аккаунт Vanilla Voyage, чтобы просматривать историю заказов.",
+        orders_empty_title:    "Заказов пока нет",
+        orders_empty_sub:      "Вы ещё не сделали ни одного заказа. Ознакомьтесь с нашей коллекцией ароматов.",
+        orders_order_prefix:   "Заказ #",
+        orders_label_customer: "Клиент",
+        orders_label_phone:    "Телефон",
+        orders_label_address:  "Адрес доставки",
+        orders_show_items:     "Товары",
+        orders_hide_items:     "Скрыть",
+        orders_status_PENDING:    "Принят",
+        orders_status_PROCESSING: "Обрабатывается",
+        orders_status_SHIPPED:    "Отправлен",
+        orders_status_DELIVERED:  "Доставлен",
+      },
+      en: {
+        nav_home:              "Home",
+        orders_nav_my_orders:  "My Orders",
+        orders_nav_signout:    "Sign Out",
+        orders_title:          "My Orders",
+        orders_subtitle:       "Track your fragrance journey",
+        orders_loading:        "Loading…",
+        orders_login_title:    "Sign In to Track Orders",
+        orders_login_sub:      "Log into your Vanilla Voyage account to view and track your order history.",
+        orders_empty_title:    "No Orders Yet",
+        orders_empty_sub:      "You haven't placed any orders. Explore our fragrance collection.",
+        orders_order_prefix:   "Order #",
+        orders_label_customer: "Customer",
+        orders_label_phone:    "Phone",
+        orders_label_address:  "Delivery address",
+        orders_show_items:     "Items",
+        orders_hide_items:     "Hide",
+        orders_status_PENDING:    "Order Placed",
+        orders_status_PROCESSING: "Processing",
+        orders_status_SHIPPED:    "Shipped",
+        orders_status_DELIVERED:  "Delivered",
+      }
+    };
+
+    // Merge extra keys into I18N so data-i18n works
+    ['hy','ru','en'].forEach(lang => {
+      Object.assign(TRANSLATIONS[lang], ORDERS_EXTRA[lang]);
+    });
+
+    // Helper: get translated string for current lang
+    function ot(key) { return I18N.t(key); }
+
+    // ── Helpers ────────────────────────────────────
+    const STATUSES = ['PENDING', 'PROCESSING', 'SHIPPED', 'DELIVERED'];
+
+    function formatAMD(n) {
+      return Math.round(n).toLocaleString('en-US') + ' AMD';
+    }
+
+    function formatDate(iso) {
+      if (!iso) return '—';
+      const d = new Date(iso);
+      const lang = I18N.current;
+      const locale = lang === 'hy' ? 'hy-AM' : lang === 'ru' ? 'ru-RU' : 'en-GB';
+      return d.toLocaleDateString(locale, { day: 'numeric', month: 'short', year: 'numeric' });
+    }
+
+    function trackerProgressWidth(status) {
+      const idx = STATUSES.indexOf(status);
+      if (idx <= 0) return '0%';
+      const pct = (idx / (STATUSES.length - 1)) * 100;
+      return `calc(${pct}% - 22px)`;
+    }
+
+    // ── Render ─────────────────────────────────────
+    function renderOrders(orders) {
+      const list = document.getElementById('ordersList');
+      if (!orders || orders.length === 0) {
+        document.getElementById('ordersEmpty').style.display = '';
+        I18N.apply();
+        return;
+      }
+      list.style.display = 'flex';
+
+      list.innerHTML = orders.map(order => {
+        const status = order.status || 'PENDING';
+        const statusIdx = STATUSES.indexOf(status);
+        const statusLabel = ot('orders_status_' + status) || status;
+
+        const trackerSteps = STATUSES.map((s, i) => {
+          let dotClass = '';
+          if (i < statusIdx) dotClass = 'done';
+          else if (i === statusIdx) dotClass = 'current';
+          const labelClass = i === statusIdx ? 'active' : '';
+          const sLabel = ot('orders_status_' + s) || s;
+          return `
+            <div class="tracker-step">
+              <div class="tracker-dot ${dotClass}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </div>
+              <span class="tracker-label ${labelClass}">${sLabel}</span>
+            </div>
+          `;
+        }).join('');
+
+        const items = (order.items || []).map(it => `
+          <div class="order-item-row">
+            <span class="order-item-name">${it.product?.name || 'Product'}</span>
+            <span class="order-item-qty">× ${it.quantity}</span>
+            <span class="order-item-price">${formatAMD(it.priceAtPurchase * it.quantity)}</span>
+          </div>
+        `).join('');
+
+        const shippingRows = [
+          { label: ot('orders_label_customer'), val: order.fullName },
+          { label: ot('orders_label_phone'),    val: order.phone },
+          { label: ot('orders_label_address'),  val: [order.address, order.city, order.postalCode].filter(Boolean).join(', ') },
+        ].filter(r => r.val).map(r => `
+          <div class="shipping-field">
+            <div class="shipping-field-label">${r.label}</div>
+            <div class="shipping-field-value">${r.val}</div>
+          </div>
+        `).join('');
+
+        const itemCount = order.items?.length || 0;
+
+        return `
+          <div class="order-card">
+            <div class="order-card-header">
+              <div class="order-id">${ot('orders_order_prefix')}${order.id}</div>
+              <div class="order-meta">
+                <span class="order-date">${formatDate(order.createdAt)}</span>
+                <span class="order-total">${formatAMD(order.totalPrice)}</span>
+                <span class="status-badge status-${status}">${statusLabel}</span>
+              </div>
+            </div>
+
+            <div class="order-tracker">
+              <div class="tracker-steps">
+                <div class="tracker-progress" style="width:${trackerProgressWidth(status)}"></div>
+                ${trackerSteps}
+              </div>
+            </div>
+
+            ${shippingRows ? `<div class="order-shipping">${shippingRows}</div>` : ''}
+
+            ${itemCount ? `
+              <div class="order-items-toggle">
+                <button class="toggle-btn" onclick="toggleItems(this)">
+                  ${ot('orders_show_items')} (${itemCount}) <span class="toggle-arrow">▾</span>
+                </button>
+              </div>
+              <div class="order-items-list">${items}</div>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function toggleItems(btn) {
+      const arrow = btn.querySelector('.toggle-arrow');
+      const listEl = btn.closest('.order-card').querySelector('.order-items-list');
+      if (!listEl) return;
+      const open = listEl.classList.toggle('open');
+      arrow.classList.toggle('open', open);
+      const count = listEl.children.length;
+      btn.innerHTML = `${open ? ot('orders_hide_items') : ot('orders_show_items')} (${count}) <span class="toggle-arrow ${open ? 'open' : ''}">▾</span>`;
+    }
+
+    function logout() {
+      localStorage.removeItem('userId');
+      localStorage.removeItem('userEmail');
+      localStorage.removeItem('userName');
+      window.location.href = 'login.html';
+    }
+
+    // Re-render on language change so order labels update
+    const _origSet = I18N.set.bind(I18N);
+    I18N.set = function(lang) {
+      _origSet(lang);
+      const list = document.getElementById('ordersList');
+      if (list && list.style.display !== 'none' && list.innerHTML.trim()) {
+        // re-fetch and re-render with new language
+        loadOrders();
+      }
+    };
+
+    // ── Load ───────────────────────────────────────
+    let _cachedOrders = null;
+
+    async function loadOrders() {
+      const userId    = localStorage.getItem('userId');
+      const userEmail = localStorage.getItem('userEmail');
+
+      document.getElementById('ordersLoading').style.display = '';
+      document.getElementById('ordersLoginPrompt').style.display = 'none';
+      document.getElementById('ordersEmpty').style.display = 'none';
+      document.getElementById('ordersList').style.display = 'none';
+      document.getElementById('ordersList').innerHTML = '';
+
+      if (!userId) {
+        document.getElementById('ordersLoading').style.display = 'none';
+        document.getElementById('ordersLoginPrompt').style.display = '';
+        I18N.apply();
+        return;
+      }
+
+      const badge = document.getElementById('userBadge');
+      const badgeEmail = document.getElementById('userBadgeEmail');
+      if (badge && badgeEmail) {
+        badgeEmail.textContent = userEmail || 'Signed in';
+        badge.style.display = 'inline-flex';
+      }
+
+      // Use cache when only language changed
+      if (_cachedOrders !== null) {
+        document.getElementById('ordersLoading').style.display = 'none';
+        renderOrders(_cachedOrders);
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/cart/orders', {
+          headers: { 'userId': userId }
+        });
+
+        document.getElementById('ordersLoading').style.display = 'none';
+
+        if (res.ok) {
+          const orders = await res.json();
+          orders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+          _cachedOrders = orders;
+          renderOrders(orders);
+        } else if (res.status === 401 || res.status === 403) {
+          document.getElementById('ordersLoginPrompt').style.display = '';
+          I18N.apply();
+        } else {
+          document.getElementById('ordersEmpty').style.display = '';
+          I18N.apply();
+        }
+      } catch (e) {
+        document.getElementById('ordersLoading').style.display = 'none';
+        document.getElementById('ordersEmpty').style.display = '';
+        I18N.apply();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadOrders);
+  </script>
+</body>
+</html>

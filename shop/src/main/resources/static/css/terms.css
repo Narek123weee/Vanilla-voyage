@@ -1,0 +1,30 @@
+/* ─── TOKENS ─────────────────────────────────────── */
+:root {
+    --cream:     #F5ECD7;
+    --vanilla:   #E8D5B7;
+    --caramel:   #C9A87C;
+    --mocha:     #8B5E3C;
+    --espresso:  #2C1A0E;
+    --sand:      #D4B896;
+    --toffee:    #A67C52;
+    --honey:     #E8C99A;
+    --parchment: #F0E6D3;
+
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body:    'Jost', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+
+body {
+    font-family: var(--font-body);
+    font-weight: 300;
+    background: var(--espresso);
+    color: var(--espresso);
+    display: flex;
+    min-height: 100vh;
+}
+.text-info{
+    color: var(--cream);
+}

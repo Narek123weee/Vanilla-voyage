@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vanilla Voyage — Collection</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/cart.css" />
+  <link rel="icon" type="image/x-icon" href="./img/Logo.png">
+  <style>
+    .scent-img-placeholder {
+      width: 100%; height: 220px; overflow: hidden;
+      border-radius: 10px 10px 0 0; background: #f0e6d8;
+    }
+    .scent-img-placeholder img { width: 100%; height: 220px; object-fit: cover; display: block; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-logo"><a href="index.html" style="text-decoration:none;color:inherit;">Vanilla <span>Voyage</span></a></div>
+    <ul class="nav-links">
+      <li><a href="index.html" data-i18n="nav_collection">Տեսականի</a></li>
+      <li><a href="our-story.html" data-i18n="nav_our_story">Մեր պատմությունը</a></li>
+      <li><a href="index.html#newsletter" data-i18n="nav_contact">Կապ</a></li>
+      <li><a href="orders.html" data-i18n="nav_my_orders" id="navOrdersLink" style="display:none;">My Orders</a></li>
+      <li><a href="login.html" class="nav-cta" data-i18n="nav_buy" id="navLoginLink">Գնել հիմա</a></li>
+      <li>
+        <button class="nav-cart-btn" id="navCartBtn" onclick="openCart()" aria-label="Cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6 5 2H2"/><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/></svg>
+          <span class="nav-cart-badge" id="navCartBadge">0</span>
+        </button>
+      </li>
+      <li>
+        <div class="lang-switcher">
+          <button class="lang-btn active" data-lang="hy" onclick="I18N.set('hy')">ՀՅ</button>
+          <button class="lang-btn" data-lang="ru" onclick="I18N.set('ru')">РУ</button>
+          <button class="lang-btn" data-lang="en" onclick="I18N.set('en')">EN</button>
+        </div>
+      </li>
+    </ul>
+  </nav>
+
+  <section class="scents" id="scents">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow" data-i18n="coll_eyebrow">Տեսականին</p>
+        <h2 data-i18n="coll_h2">Հեղինակային բույրեր</h2>
+        <p data-i18n="coll_p">Բացահայտեք յուրահատուկ բույրերը մեր հետ</p>
+      </div>
+      <div class="scents-grid">
+
+        <div class="scent-card" data-product-id="p1" data-price="95000">
+          <span class="scent-badge badge-new" data-i18n="badge_new">Նորություն</span>
+          <div class="scent-img-placeholder"><img src="./img/F_1.jpg" alt="" loading="lazy" /></div>
+          <h3 data-i18n="p1_name">Կեսգիշերվա Ռոմ</h3>
+          <p class="notes" data-i18n="p1_notes">Դառը շոկոլադ · Հնեցված ռոմ · Ծխախոտի տերև</p>
+          <p style="font-size:0.875rem;color:var(--mocha);" data-i18n="p1_desc">Հարուստ և խորը բույր նրանց համար, ովքեր գնահատում են էլեգանտությունն ու գաղտնիքը։</p>
+          <div class="scent-footer"><span class="price">95 000 AMD</span><button class="btn btn-dark" data-i18n="btn_add" onclick="addToCart(this.closest('.scent-card'))">Ավելացնել</button></div>
+        </div>
+
+        <div class="scent-card" data-product-id="p7" data-price="115000">
+          <span class="scent-badge badge-new" data-i18n="badge_new">Նորություն</span>
+          <div class="scent-img-placeholder"><img src="./img/F_3.jpg" alt="" loading="lazy" /></div>
+          <h3>Գարնանային անձրև</h3>
+          <p class="notes">Բերգամոտ · Հասմիկ · Վանիլ</p>
+          <p style="font-size:0.875rem;color:var(--mocha);">Spring rain's first drops on jasmine petals.</p>
+          <div class="scent-footer"><span class="price">115 000 AMD</span><button class="btn btn-dark" data-i18n="btn_add" onclick="addToCart(this.closest('.scent-card'))">Ավելացնել</button></div>
+        </div>
+
+        <div class="scent-card" data-product-id="p2" data-price="174000">
+          <span class="scent-badge badge-best" data-i18n="badge_best">Բեստսելլեր</span>
+          <div class="scent-img-placeholder"><img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=600&q=80" alt="" loading="lazy" /></div>
+          <h3 data-i18n="p2_name">Արևելյան Հեքիաթ</h3>
+          <p class="notes" data-i18n="p2_notes">Վանիլ · Հիլ · Սանդալ</p>
+          <p style="font-size:0.875rem;color:var(--mocha);" data-i18n="p2_desc">Ճամփորդություն դեպի արևելյան հեքիաթային շուկաներ և շքեղ պալատներ։</p>
+          <div class="scent-footer"><span class="price">174 000 AMD</span><button class="btn btn-dark" data-i18n="btn_add" onclick="addToCart(this.closest('.scent-card'))">Ավելացնել</button></div>
+        </div>
+
+        <div class="scent-card" data-product-id="p3" data-price="245000">
+          <span class="scent-badge badge-limit" data-i18n="badge_limit">Սահմանափակ թողարկում</span>
+          <div class="scent-img-placeholder"><img src="https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=600&q=80" alt="" loading="lazy" /></div>
+          <h3 data-i18n="p3_name">Լուսնի Շող</h3>
+          <p class="notes" data-i18n="p3_notes">Սպիտակ վանիլ · Հասմիկ · Անանուխ</p>
+          <p style="font-size:0.875rem;color:var(--mocha);" data-i18n="p3_desc">Լուսնյակ գիշերը, երբ օդը լցված է թարմությամբ և ծաղկային նուրբ շնչով։</p>
+          <div class="scent-footer"><span class="price">245 000 AMD</span><button class="btn btn-dark" data-i18n="btn_add" onclick="addToCart(this.closest('.scent-card'))">Ավելացնել</button></div>
+        </div>
+
+        <div class="scent-card" data-product-id="p4" data-price="195000">
+          <span class="scent-badge badge-limit" data-i18n="badge_limit">Սահմանափակ թողարկում</span>
+          <div class="scent-img-placeholder"><img src="https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=600&q=80" alt="" loading="lazy" /></div>
+          <h3 data-i18n="p4_name">Ամբեր Անապատ</h3>
+          <p class="notes" data-i18n="p4_notes">Ամբեր · Ուդ · Վանիլ</p>
+          <p style="font-size:0.875rem;color:var(--mocha);" data-i18n="p4_desc">Խորը, ծխեղ բույր՝ ինչպես անապատի ջերմ ավազն ու հին փայտի հոտը։</p>
+          <div class="scent-footer"><span class="price">195 000 AMD</span><button class="btn btn-dark" data-i18n="btn_add" onclick="addToCart(this.closest('.scent-card'))">Ավելացնել</button></div>
+        </div>
+
+        <div class="scent-card" data-product-id="p5" data-price="158000">
+          <span class="scent-badge badge-best" data-i18n="badge_best">Սահմանափակ թողարկում</span>
+          <div class="scent-img-placeholder"><img src="https://images.unsplash.com/photo-1587017539504-67cfbddac569?w=600&q=80" alt="" loading="lazy" /></div>
+          <h3 data-i18n="p5_name">Վարդ ու Մուշկ</h3>
+          <p class="notes" data-i18n="p5_notes">Վարդ · Մուշկ · Չերպիչ</p>
+          <p style="font-size:0.875rem;color:var(--mocha);" data-i18n="p5_desc">Նուրբ, ծաղկային բուրմունք՝ ինչպես առավոտյան վարդն, որ ցողով ծածկված է։</p>
+          <div class="scent-footer"><span class="price">158 000 AMD</span><button class="btn btn-dark" data-i18n="btn_add" onclick="addToCart(this.closest('.scent-card'))">Ավելացնել</button></div>
+        </div>
+
+        <div class="scent-card" data-product-id="p6" data-price="670000">
+          <span class="scent-badge badge-limit" data-i18n="badge_super">Գերսահմանափակ</span>
+          <div class="scent-img-placeholder"><img src="./img/F_2.jpg" alt="" loading="lazy" /></div>
+          <h3 data-i18n="p6_name">Վուգեն</h3>
+          <p class="notes" data-i18n="p6_notes">Ձեթ · Մանկական յուղ · Ժամանակ</p>
+          <p style="font-size:0.875rem;color:var(--mocha);" data-i18n="p6_desc">Մաքուր, ջերմ, անկեղծ բույր՝ ինչպես հիշողություն, որ հնարավոր չէ մոռանալ։</p>
+          <div class="scent-footer"><span class="price">670 000 AMD</span><button class="btn btn-dark" data-i18n="btn_add" onclick="addToCart(this.closest('.scent-card'))">Ավելացնել</button></div>
+        </div>
+
+        <div class="scent-card" data-product-id="p7" data-price="75000">
+          <span class="scent-badge badge-limit" data-i18n="badge_new">Նորույթ</span>
+          <div class="scent-img-placeholder"><img src="./img/F_4.jpg" alt="" loading="lazy" /></div>
+          <h3 data-i18n="p7_name">Կեսգիշեր</h3>
+          <p class="notes" data-i18n="p7_notes">Ամբրոքսան · Անանուխ </p>
+          <p style="font-size:0.875rem;color:var(--mocha);" data-i18n="p7_desc">Մաքուր, ջերմ, ինչպես հիշողություն, որ հնարավոր չէ մոռանալ։</p>
+          <div class="scent-footer"><span class="price">75 000 AMD</span><button class="btn btn-dark" data-i18n="btn_add" onclick="addToCart(this.closest('.scent-card'))">Ավելացնել</button></div>
+        </div>
+
+        <div class="scent-card" data-product-id="p8" data-price="135000">
+          <span class="scent-badge badge-limit" data-i18n="badge_limit">Գերսահմանափակ</span>
+          <div class="scent-img-placeholder"><img src="./img/F_5.jpg" alt="" loading="lazy" /></div>
+          <h3 data-i18n="p8_name">Տրոպիկական ամառ</h3>
+          <p class="notes" data-i18n="p8_notes">Ալկոհոլ · Մրգեր · Կիտրոն</p>
+          <p style="font-size:0.875rem;color:var(--mocha);" data-i18n="p8_desc">Արևադարձային մրգերի թարմ ու արևային բույր, որը հիշեցնում է անհոգ ամառային օրեր ու ծովափի ջերմ քամի։</p>
+          <div class="scent-footer"><span class="price">135 000 AMD</span><button class="btn btn-dark" data-i18n="btn_add" onclick="addToCart(this.closest('.scent-card'))">Ավելացնել</button></div>
+        </div>
+
+        <div class="scent-card" data-product-id="p9" data-price="230000">
+          <span class="scent-badge badge-limit" data-i18n="badge_super">Գերսահմանափակ</span>
+          <div class="scent-img-placeholder"><img src="./img/F_6.jpg" alt="" loading="lazy" /></div>
+          <h3 data-i18n="p9_name">Golden Breeze</h3>
+          <p class="notes" data-i18n="p9_notes">Արքայախնձոր · Հասմիկ · Մուշկ</p>
+          <p style="font-size:0.875rem;color:var(--mocha);" data-i18n="p9_desc">Թեթև, քաղցր ու պայծառ բույր՝ լի ամառային ջերմությամբ և արևի նուրբ շնչով։</p>
+          <div class="scent-footer"><span class="price">230 000 AMD</span><button class="btn btn-dark" data-i18n="btn_add" onclick="addToCart(this.closest('.scent-card'))">Ավելացնել</button></div>
+        </div>
+
+        <div class="scent-card" data-product-id="p10" data-price="254000">
+          <span class="scent-badge badge-limit" data-i18n="badge_super">Գերսահմանափակ</span>
+          <div class="scent-img-placeholder"><img src="./img/F_8.jpg" alt="" loading="lazy" /></div>
+          <h3 data-i18n="p10_name">Վուգեն</h3>
+          <p class="notes" data-i18n="p10_notes">Ձեթ · Մանկական յուղ · Ժամանակ</p>
+          <p style="font-size:0.875rem;color:var(--mocha);" data-i18n="p10_desc">Մաքուր, ջերմ, անկեղծ բույր՝ ինչպես հիշողություն, որ հնարավոր չէ մոռանալ։</p>
+          <div class="scent-footer"><span class="price">254 000 AMD</span><button class="btn btn-dark" data-i18n="btn_add" onclick="addToCart(this.closest('.scent-card'))">Ավելացնել</button></div>
+        </div>
+
+        <div class="scent-card" data-product-id="p11" data-price="205000">
+          <span class="scent-badge badge-limit" data-i18n="badge_super">Գերսահմանափակ</span>
+          <div class="scent-img-placeholder"><img src="./img/F_9.jpg" alt="" loading="lazy" /></div>
+          <h3 data-i18n="p11_name">Վուգեն</h3>
+          <p class="notes" data-i18n="p11_notes">Ձեթ · Մանկական յուղ · Ժամանակ</p>
+          <p style="font-size:0.875rem;color:var(--mocha);" data-i18n="p11_desc">Մաքուր, ջերմ, անկեղծ բույր՝ ինչպես հիշողություն, որ հնարավոր չէ մոռանալ։</p>
+          <div class="scent-footer"><span class="price">205 000 AMD</span><button class="btn btn-dark" data-i18n="btn_add" onclick="addToCart(this.closest('.scent-card'))">Ավելացնել</button></div>
+        </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CART DRAWER -->
+  <div class="vv-overlay" id="cartOverlay" onclick="closeCart()"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-drawer-header">
+      <h3 data-i18n="cart_title">Զամբյուղ</h3>
+      <button class="cart-close-btn" onclick="closeCart()" aria-label="Close">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-drawer-footer" id="cartFooter">
+      <div class="cart-total-row">
+        <span data-i18n="cart_total_label">Ընդհանուր.</span>
+        <span id="cartTotalAmount">0 AMD</span>
+      </div>
+      <button class="btn btn-primary cart-checkout-btn" onclick="openCheckout()" data-i18n="cart_checkout_btn">Անցնել վճարմանը</button>
+      <button class="cart-continue-link" onclick="closeCart()" data-i18n="cart_continue">Շարունակել գնումները</button>
+    </div>
+  </aside>
+
+  <!-- CHECKOUT MODAL ("small page" over the main page) -->
+  <div class="vv-overlay checkout-overlay" id="checkoutOverlay" onclick="closeCheckout()"></div>
+  <div class="checkout-modal" id="checkoutModal" role="dialog" aria-modal="true">
+    <div class="checkout-modal-header">
+      <button class="checkout-close-btn" onclick="closeCheckout()" aria-label="Close">✕</button>
+      <h3 data-i18n="checkout_title">Անվտանգ վճարում</h3>
+      <p data-i18n="checkout_subtitle">Մուտքագրեք ձեր քարտի տվյալները՝ պատվերը հաստատելու համար</p>
+    </div>
+
+    <form class="checkout-form" id="checkoutForm" onsubmit="submitCheckout(event)">
+
+      <!-- ── Step indicator ── -->
+      <div class="checkout-steps">
+        <button type="button" class="checkout-step active" id="stepBtn1" onclick="goToStep(1)">
+          <span class="step-num">1</span><span class="step-label" data-i18n="checkout_step_personal">Personal Info</span>
+        </button>
+        <div class="checkout-step-divider"></div>
+        <button type="button" class="checkout-step" id="stepBtn2" onclick="goToStep(2)">
+          <span class="step-num">2</span><span class="step-label" data-i18n="checkout_step_payment">Payment</span>
+        </button>
+      </div>
+
+      <!-- ── Step 1: Personal Information ── -->
+      <div id="checkoutStep1">
+        <div class="cc-section-title" data-i18n="checkout_personal_title">Delivery Information</div>
+
+        <div class="cc-row">
+          <div class="cc-field">
+            <label data-i18n="checkout_fullname_label">Full Name</label>
+            <input type="text" id="piFullNameInput" placeholder="Anna Petrosyan" autocomplete="name" />
+            <div class="cc-error" id="piFullNameError"></div>
+          </div>
+          <div class="cc-field">
+            <label data-i18n="checkout_phone_label">Phone Number</label>
+            <input type="tel" id="piPhoneInput" placeholder="+374 77 123456" autocomplete="tel" />
+            <div class="cc-error" id="piPhoneError"></div>
+          </div>
+        </div>
+
+        <div class="cc-field">
+          <label data-i18n="checkout_address_label">Street Address</label>
+          <input type="text" id="piAddressInput" placeholder="Baghramyan Ave 24" autocomplete="street-address" />
+          <div class="cc-error" id="piAddressError"></div>
+        </div>
+
+        <div class="cc-row">
+          <div class="cc-field">
+            <label data-i18n="checkout_city_label">City</label>
+            <input type="text" id="piCityInput" placeholder="Yerevan" autocomplete="address-level2" />
+            <div class="cc-error" id="piCityError"></div>
+          </div>
+          <div class="cc-field">
+            <label data-i18n="checkout_postal_label">Postal Code</label>
+            <input type="text" id="piPostalInput" placeholder="0019" autocomplete="postal-code" />
+            <div class="cc-error" id="piPostalError"></div>
+          </div>
+        </div>
+
+        <button type="button" class="btn btn-primary checkout-pay-btn" onclick="goToStep(2)" style="margin-top:0.5rem;">
+          <span data-i18n="checkout_next_btn">Continue to Payment →</span>
+        </button>
+        <button type="button" class="checkout-back-link" onclick="backToCart()" data-i18n="checkout_back">← Back to Cart</button>
+      </div>
+
+      <!-- ── Step 2: Payment ── -->
+      <div id="checkoutStep2" style="display:none;">
+        <div class="cc-card-visual">
+          <div class="cc-chip"></div>
+          <div class="cc-number" id="ccVisualNumber">•••• •••• •••• ••••</div>
+          <div class="cc-bottom-row">
+            <span id="ccVisualName">FULL NAME</span>
+            <span id="ccVisualExpiry">MM/YY</span>
+          </div>
+        </div>
+
+        <div class="cc-field">
+          <label data-i18n="checkout_name_label">Cardholder Name</label>
+          <input type="text" id="ccNameInput" data-i18n="checkout_name_ph" placeholder="A. Petrosyan" autocomplete="cc-name" oninput="updateCardVisual()" />
+          <div class="cc-error" id="ccNameError"></div>
+        </div>
+
+        <div class="cc-field">
+          <label data-i18n="checkout_card_label">Card Number</label>
+          <input type="text" id="ccNumberInput" placeholder="0000 0000 0000 0000" inputmode="numeric" autocomplete="cc-number" oninput="formatCardNumberInput(this)" />
+          <div class="cc-error" id="ccNumberError"></div>
+        </div>
+
+        <div class="cc-row">
+          <div class="cc-field">
+            <label data-i18n="checkout_expiry_label">Expiry Date</label>
+            <input type="text" id="ccExpiryInput" placeholder="MM/YY" inputmode="numeric" autocomplete="cc-exp" oninput="formatExpiryInput(this)" />
+            <div class="cc-error" id="ccExpiryError"></div>
+          </div>
+          <div class="cc-field">
+            <label data-i18n="checkout_cvv_label">CVV</label>
+            <input type="password" id="ccCvvInput" placeholder="•••" inputmode="numeric" autocomplete="cc-csc" oninput="formatCvvInput(this)" />
+            <div class="cc-error" id="ccCvvError"></div>
+          </div>
+        </div>
+
+        <div class="checkout-total-row">
+          <span data-i18n="checkout_total_label">Amount to Pay</span>
+          <span id="checkoutTotalAmount">0 AMD</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary checkout-pay-btn" id="checkoutPayBtn">
+          <span class="cc-spinner"></span>
+          <span class="cc-pay-label" data-i18n="checkout_pay_btn">Pay</span>
+        </button>
+        <button type="button" class="checkout-back-link" onclick="goToStep(1)" data-i18n="checkout_back_to_info">← Back to Personal Info</button>
+      </div>
+    </form>
+
+    <div class="checkout-success" id="checkoutSuccess" style="display:none;">
+      <div class="checkout-success-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h3 data-i18n="checkout_success_title">Շնորհակալություն ձեր պատվերի համար</h3>
+      <p data-i18n="checkout_success_msg">Ձեր վճարումը հաջողությամբ ընդունվել է։ Ձեր բույրերը շուտով ճանապարհորդության կմեկնեն դեպի Ձեզ։</p>
+      <div style="display:flex;flex-direction:column;gap:0.75rem;align-items:center;margin-top:0.5rem;">
+        <a href="orders.html" class="btn btn-dark" style="text-decoration:none;display:inline-block;" data-i18n="checkout_track_order">Track My Order</a>
+        <button class="checkout-back-link" onclick="closeCheckout()" data-i18n="checkout_close">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="i18n.js"></script>
+  <script src="cart.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // Show "My Orders" link and change login button if user is logged in
+    (function() {
+      const userId = localStorage.getItem('userId');
+      const ordersLink = document.getElementById('navOrdersLink');
+      const loginLink  = document.getElementById('navLoginLink');
+      if (userId) {
+        if (ordersLink) ordersLink.style.display = '';
+        if (loginLink) {
+          loginLink.textContent = 'Sign Out';
+          loginLink.href = '#';
+          loginLink.onclick = function(e) {
+            e.preventDefault();
+            localStorage.removeItem('userId');
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('userName');
+            window.location.href = 'login.html';
+          };
+        }
+      }
+    })();
+  </script>
+</body>
+</html>

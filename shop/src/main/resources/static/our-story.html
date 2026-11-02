@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vanilla Voyage — Our Story</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/x-icon" href="./img/Logo.png">
+  <style>
+    .story-hero {
+      background: linear-gradient(135deg, #1a0a00 0%, #3d1f00 50%, #1a0a00 100%);
+      color: #f5ede0; padding: 120px 0 80px; text-align: center;
+    }
+    .story-hero .eyebrow { color: #c9a96e; letter-spacing: .2em; font-size: .8rem; text-transform: uppercase; margin-bottom: 1rem; }
+    .story-hero h1 { font-family: 'Cormorant Garamond',serif; font-size: clamp(2.5rem,5vw,4rem); font-weight: 300; margin-bottom: 1.5rem; }
+    .story-hero h1 em { font-style: italic; color: #c9a96e; }
+    .story-hero p { max-width: 600px; margin: 0 auto; line-height: 1.8; opacity: .85; font-size: 1.05rem; }
+
+    .story-section { padding: 80px 0; }
+    .story-section:nth-child(even) { background: #faf6f0; }
+    .story-block { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .story-block.reverse { direction: rtl; }
+    .story-block.reverse > * { direction: ltr; }
+    .story-img-placeholder { width: 100%; height: 380px; border-radius: 16px; background: linear-gradient(135deg,#3d1f00,#c9a96e); display: flex; align-items: center; justify-content: center; font-size: 4rem; box-shadow: 0 20px 60px rgba(0,0,0,.15); }
+    .story-text .eyebrow { color: #c9a96e; letter-spacing: .15em; font-size: .75rem; text-transform: uppercase; margin-bottom: 1rem; }
+    .story-text h2 { font-family: 'Cormorant Garamond',serif; font-size: clamp(1.8rem,3vw,2.6rem); font-weight: 400; color: #1a0a00; margin-bottom: 1.2rem; line-height: 1.2; }
+    .story-text h2 em { font-style: italic; color: #8b5e3c; }
+    .story-text p { color: #5a3e2b; line-height: 1.85; margin-bottom: 1rem; font-size: .95rem; }
+
+    .timeline { max-width: 800px; margin: 60px auto 0; padding: 0 24px; }
+    .timeline-item { display: flex; gap: 32px; margin-bottom: 48px; }
+    .timeline-year { font-family: 'Cormorant Garamond',serif; font-size: 2rem; color: #c9a96e; font-weight: 300; min-width: 80px; line-height: 1; }
+    .timeline-line { width: 1px; background: #c9a96e; opacity: .3; margin: 0 8px; }
+    .timeline-content h3 { font-family: 'Cormorant Garamond',serif; font-size: 1.3rem; color: #1a0a00; margin-bottom: .5rem; }
+    .timeline-content p { color: #5a3e2b; line-height: 1.7; font-size: .9rem; }
+
+    .values-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; max-width: 1000px; margin: 48px auto 0; padding: 0 24px; }
+    .value-card { text-align: center; padding: 40px 24px; background: white; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,.06); }
+    .value-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .value-card h3 { font-family: 'Cormorant Garamond',serif; font-size: 1.3rem; color: #1a0a00; margin-bottom: .75rem; }
+    .value-card p { color: #5a3e2b; font-size: .88rem; line-height: 1.7; }
+
+    .story-quote { background: #1a0a00; color: #f5ede0; text-align: center; padding: 80px 24px; }
+    .story-quote blockquote { font-family: 'Cormorant Garamond',serif; font-size: clamp(1.5rem,3vw,2.2rem); font-style: italic; max-width: 700px; margin: 0 auto; line-height: 1.6; }
+    .story-quote cite { display: block; margin-top: 24px; font-style: normal; color: #c9a96e; font-size: .85rem; letter-spacing: .1em; }
+
+    .section-center { text-align: center; max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+    .section-center h2 { font-family: 'Cormorant Garamond',serif; font-size: clamp(1.8rem,3vw,2.4rem); color: #1a0a00; margin-bottom: 1rem; }
+
+    @media(max-width:768px) {
+      .story-block { grid-template-columns: 1fr; gap: 32px; }
+      .story-block.reverse { direction: ltr; }
+      .values-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-logo"><a href="index.html" style="text-decoration:none;color:inherit;">Vanilla <span>Voyage</span></a></div>
+    <ul class="nav-links">
+      <li><a href="index.html#scents" data-i18n="nav_collection">Տեսականի</a></li>
+      <li><a href="our-story.html" style="color:var(--mocha,#8b5e3c);font-weight:500;" data-i18n="nav_our_story">Մեր պատմությունը</a></li>
+      <li><a href="index.html#newsletter" data-i18n="nav_contact">Կապ</a></li>
+      <li><a href="login.html" class="nav-cta" data-i18n="nav_buy">Գնել հիմա</a></li>
+      <li>
+        <div class="lang-switcher">
+          <button class="lang-btn active" data-lang="hy" onclick="I18N.set('hy')">ՀՅ</button>
+          <button class="lang-btn" data-lang="ru" onclick="I18N.set('ru')">РУ</button>
+          <button class="lang-btn" data-lang="en" onclick="I18N.set('en')">EN</button>
+        </div>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="story-hero">
+    <div class="container">
+      <p class="eyebrow" data-i18n="story_eyebrow">2026-ից ի վեր</p>
+      <h1 data-i18n="story_h1">Մեր <em>պատմությունը</em></h1>
+      <p data-i18n="story_hero_p">Vanilla Voyage-ը ծնվել է Հայաստանում՝ մի հիմնադրի երազից, ով ցանկանում էր համատեղել Արևելքի հնությունն ու ժամանակակից շքեղությունը մեկ շշի մեջ։</p>
+    </div>
+  </section>
+
+  <!-- FOUNDING -->
+  <section class="story-section">
+    <div class="story-block">
+      <div class="story-img-wrap" style="width:100%;height:380px;border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.15);">
+        <img src="./img/evie-s-cmbbwn-2Ilw-unsplash.jpg"
+             alt="Vanilla beans and botanicals in workshop"
+             style="width:100%;height:100%;object-fit:cover;" />
+      </div>
+      <div class="story-text">
+        <p class="eyebrow" data-i18n="story_s1_eyebrow">Ծնունդ</p>
+        <h2 data-i18n="story_s1_h2">Ամեն ինչ սկսվեց <em>վանիլի մի կաթիլից</em></h2>
+        <p data-i18n="story_s1_p1">2026 թ. գարնանն Երևանի մի փոքր արհեստանոցում մեր հիմնադիրը ստեղծեց իր առաջին բույրը՝ մուգ ռոմ, դառը շոկոլադ և ծխախոտի տերև։ Ոչ ոք չէր հավատում, որ այդ փոքրիկ փորձն ի վերջո կդառնա բրենդ։</p>
+        <p data-i18n="story_s1_p2">Բայց բույրն ուներ մի բան հատուկ. Հայաստանի կիրճերի ջերմությունն ու Հին Արևելքի ոգին՝ միաժամանակ։ Հենց այդ օրն էր, որ Vanilla Voyage-ը ծնվեց։</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section class="story-section">
+    <div class="story-block reverse">
+      <div class="story-img-wrap" style="width:100%;height:380px;border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.15);">
+        <img src="./img/F_6.jpg"
+             alt="Luxury perfume bottles"
+             style="width:100%;height:100%;object-fit:cover;" />
+      </div>
+      <div class="story-text">
+        <p class="eyebrow" data-i18n="story_s2_eyebrow">Փիլիսոփայություն</p>
+        <h2 data-i18n="story_s2_h2">Մեկ բաղադրիչ, <em>անհամար պատմություններ</em></h2>
+        <p data-i18n="story_s2_p1">Մեր ամբողջ հավաքածուն կառուցված է վանիլի շուրջ, բայց ոչ այն ձևով, որ դուք կակնկալեք։ Վանիլը մեզ համար ոչ թե բաղադրիչ է, այլ հիմք՝ կենդանի, ճկուն, անսպառ։</p>
+        <p data-i18n="story_s2_p2">Յուրաքանչյուր բույր պատմում է մի ճամփորդության մասին. կեսգիշեր Բաքուի հին փողոցներում, արևածագ Հայկական լեռներում, կամ Ստամբուլի Գրան Բազարի կռեհով։</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <div class="story-quote">
+    <blockquote data-i18n="story_quote">«Ամեն բույր, որ ես ստեղծում եմ, սկսվում է մի հարցով. ո՞ր ճամփորդությունն է ուղորդում այս հոտը»։</blockquote>
+    <cite data-i18n="story_quote_cite">— Vanilla Voyage-ի հիմնադիր</cite>
+  </div>
+
+  <!-- TIMELINE -->
+  <section class="story-section">
+    <div class="section-center">
+      <p class="eyebrow" style="color:#c9a96e;letter-spacing:.15em;font-size:.75rem;text-transform:uppercase;margin-bottom:.5rem;" data-i18n="story_tl_eyebrow">Ժամանակագրություն</p>
+      <h2 data-i18n="story_tl_h2">Մեր ճանապարհը</h2>
+      <p style="color:#5a3e2b;margin-top:.5rem;" data-i18n="story_tl_p">Ամեն օրով ավելի մոտ ենք գնում մեր երազանքին</p>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-year">2026</div>
+        <div class="timeline-line"></div>
+        <div class="timeline-content">
+          <h3 data-i18n="story_y1_h3">Հիմնադրման տարի</h3>
+          <p data-i18n="story_y1_p">Երևանում ստեղծվեց առաջին բույրը՝ «Կեսգիշերվա Ռոմ»։ Հիմնադիրն ինքն ձեռքերով ստեղծեց բույրը՝ դառը շոկոլադ, հնեցված ռոմ, ծխախոտի տերև։</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2026</div>
+        <div class="timeline-line"></div>
+        <div class="timeline-content">
+          <h3 data-i18n="story_y2_h3">Առաջին ցուցահանդեսն ու վաճառքը</h3>
+          <p data-i18n="story_y2_p">Մեկ փոքր ներկայացման ժամանակ Yerevan Food & Lifestyle-ում, ամբողջ պաշարը ժամերի ընթացքում վաճառվեց։</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2026</div>
+        <div class="timeline-line"></div>
+        <div class="timeline-content">
+          <h3 data-i18n="story_y3_h3">Առաջին հավաքածուն</h3>
+          <p data-i18n="story_y3_p">Հայկական պարֆյումերիայի շուկայում արդեն 12 բույր ունենք, որոնց մեջ կան ծխեղ, ծաղկային ու անպայծառ բաղադրիչներ։</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">Հիմա</div>
+        <div class="timeline-line"></div>
+        <div class="timeline-content">
+          <h3 data-i18n="story_y4_h3">Ապագայի ուղղությամբ</h3>
+          <p data-i18n="story_y4_p">Մեզ հետ են 8000+ հաճախորդ 67 երկրներից։ Մեր արհեստանոցը շարունակում է. մասնագետները ստեղծում են նոր բույրեր։</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="story-section" id="values" style="background:#faf6f0;">
+    <div class="section-center">
+      <p class="eyebrow" style="color:#c9a96e;letter-spacing:.15em;font-size:.75rem;text-transform:uppercase;margin-bottom:.5rem;" data-i18n="story_val_eyebrow">Մեր արժեքները</p>
+      <h2 data-i18n="story_val_h2">Ինչն է մեզ կողմ գնահատելի</h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon" style="font-size:0;">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="24" r="23" fill="#f5ede0" stroke="#c9a96e" stroke-width="1.5"/>
+            <path d="M24 34c0 0-10-6-10-14a10 10 0 0 1 20 0c0 8-10 14-10 14z" stroke="#8b5e3c" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <path d="M24 20v14M20 24c1.5-1 3-1.5 4-1" stroke="#8b5e3c" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 data-i18n="val1_h3">Բամակարգ հումք</h3>
+        <p data-i18n="val1_p">Միայն բարձրորակ հումքն է արժանի մեր բույրերի համար։ Վանիլը բերվում է Մադագասկարից, սանդալը՝ Հնդկաստանից։</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon" style="font-size:0;">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="24" r="23" fill="#f5ede0" stroke="#c9a96e" stroke-width="1.5"/>
+            <path d="M18 28V18a2 2 0 0 1 4 0v8m0-8V16a2 2 0 0 1 4 0v10m0-8a2 2 0 0 1 4 0v10c0 4.4-3.6 8-8 8s-8-3.6-8-8v-4a2 2 0 0 1 4 0v2" stroke="#8b5e3c" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 data-i18n="val2_h3">Ձեռագործ</h3>
+        <p data-i18n="val2_p">Ամեն մի սրվակ պատրաստվում է ձեռքով կերպով։ Արդյունաբերական արտադրությանը մաս չենք կազմում։</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon" style="font-size:0;">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="24" r="23" fill="#f5ede0" stroke="#c9a96e" stroke-width="1.5"/>
+            <path d="M14 28c3-4 7-6 10-6 4 0 6 2 6 2s-2 6-8 8c-3 1-6 0-8-4z" stroke="#8b5e3c" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <path d="M24 22l4-6c2-2 5-2 5-2s0 3-2 5l-3 2" stroke="#8b5e3c" stroke-width="1.3" stroke-linecap="round"/>
+            <circle cx="19" cy="28" r="1.2" fill="#8b5e3c"/>
+          </svg>
+        </div>
+        <h3 data-i18n="val3_h3">Ամբողջական ինքնատիպություն</h3>
+        <p data-i18n="val3_p">Մեզ համար պարֆյումերիան իսկական արվեստ է։ Ամեն բույր արտահայտում է մի տեսություն, մի հույզ։</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="newsletter" style="margin-top:0;">
+    <div class="container" style="text-align:center;">
+      <p class="eyebrow" data-i18n="story_cta_eyebrow">Միացեք մեզ</p>
+      <h2 data-i18n="story_cta_h2">Բացահայտեք բույրերը</h2>
+      <p data-i18n="story_cta_p">Ծանոթացեք մեր հավաքածուին և գտեք մեր բույրերի մեջ ձեր ճամփորդությունը։</p>
+      <div style="margin-top:2rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <a href="collection.html" class="btn btn-primary" data-i18n="story_cta_btn1">Տեսականին</a>
+        <a href="index.html#newsletter" class="btn btn-outline" data-i18n="story_cta_btn2">Բաժանորդագրվել</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="nav-logo">Vanilla <span>Voyage</span></div>
+          <p data-i18n="footer_tagline">Բարձրակարգ օծանելիքի տուն՝ ներշնչված ամենատարածված բաղադրիչով։</p>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer_col1">Հավաքածու</h4>
+          <ul>
+            <li><a href="collection.html" data-i18n="footer_link1_1">Հեղինակային բույրեր</a></li>
+            <li><a href="collection.html" data-i18n="footer_link1_2">Սահմանափակ թողարկում</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer_col2">Ընկերություն</h4>
+          <ul>
+            <li><a href="our-story.html" data-i18n="footer_link2_1">Մեր պատմությունը</a></li>
+            <li><a href="our-story.html#values" data-i18n="footer_link2_2">Հումք</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer_col3">Աջակցություն</h4>
+          <ul>
+            <li><a href="index.html#newsletter" data-i18n="footer_link3_4">Կապ</a></li>
+            <li><a href="terms&amp;conditions.html">Privacy · Terms</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span data-i18n="footer_copy">© 2026 Vanilla Voyage. Բոլոր իրավունքները պաշտպանված են։</span>
+        <span><a href="terms&amp;conditions.html">Privacy · Terms</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="i18n.js"></script>
+</body>
+</html>

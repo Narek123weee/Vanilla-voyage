@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vanilla Voyage — Sign In</title>
+  <!-- Google Identity Services -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/login-style.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" type="image/x-icon" href="./img/Logo.png">
+  <style>
+    .login-lang {
+      position: fixed; top: 18px; right: 24px; z-index: 100;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Language switcher fixed top-right -->
+  <div class="login-lang">
+    <div class="lang-switcher">
+      <button class="lang-btn active" data-lang="hy" onclick="I18N.set('hy')">ՀՅ</button>
+      <button class="lang-btn" data-lang="ru" onclick="I18N.set('ru')">РУ</button>
+      <button class="lang-btn" data-lang="en" onclick="I18N.set('en')">EN</button>
+    </div>
+  </div>
+
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+    <a href="index.html" class="left-logo">Vanilla <span>Voyage</span></a>
+    <div class="left-content">
+      <h2 data-i18n="login_left_h2">Ձեր բույրը,<br>ձեր <em>պատմությունը</em></h2>
+      <p data-i18n="login_left_p">Ստեղծեք հաշվառում, որպեսզի գնեք ձեր սիրած բույրերը, հետևեք ձեր պատվերներին և դարձեք առաջինը, ով կստանա նորությունները։</p>
+      <div class="scent-tags">
+        <span class="scent-tag" data-i18n="p2_name">Արևելյան Հեքիաթ</span>
+        <span class="scent-tag" data-i18n="p1_name">Կեսգիշերվա Ռոմ</span>
+        <span class="scent-tag" data-i18n="p3_name">Լուսնի Շող</span>
+        <span class="scent-tag">+9</span>
+      </div>
+    </div>
+    <div class="left-footer">© 2026 Vanilla Voyage</div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+    <div class="form-box">
+
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('login')" data-i18n="login_tab1">Մուտք</button>
+        <button class="tab-btn" onclick="switchTab('register')" data-i18n="login_tab2">Ստեղծել հաշիվ</button>
+      </div>
+
+      <!-- LOGIN -->
+      <div class="form-panel active" id="panel-login">
+        <div class="form-header">
+          <p class="eyebrow" data-i18n="login_eyebrow1">Բարի գալուստ</p>
+          <h3 data-i18n="login_h3_1">Մուտք գործել ձեր հաշիվ</h3>
+        </div>
+        <!-- Real Google Sign-In button rendered by GIS -->
+        <div id="g_id_onload"
+             data-client_id="YOUR_GOOGLE_CLIENT_ID"
+             data-callback="handleGoogleCredential"
+             data-auto_select="false"
+             data-cancel_on_tap_outside="true">
+        </div>
+        <div id="google-btn-login" style="display:flex;justify-content:center;margin-bottom:1rem;"></div>
+        <div class="divider"><span data-i18n="login_or">կամ շարունակեք էլ. հասցեով</span></div>
+        <div class="field">
+          <label data-i18n="login_email">Էլ. հասցե</label>
+          <input type="email" id="login-email" placeholder="you@email.com" />
+        </div>
+        <div class="field">
+          <label data-i18n="login_password">Գաղտնաբառ</label>
+          <input type="password" id="login-password" placeholder="••••••••" />
+        </div>
+        <div class="forgot"><a href="index.html#newsletter" data-i18n="login_forgot">Մոռացե՞լ եք գաղտնաբառը</a></div>
+        <button class="btn-submit" onclick="login()" data-i18n="login_btn">Մուտք</button>
+        <p class="terms">
+          <span data-i18n="login_no_acc">Չունե՞ք հաշիվ</span>
+          <a href="#" onclick="switchTab('register'); return false;" data-i18n="login_create">Ստեղծեք</a>
+        </p>
+      </div>
+
+      <!-- REGISTER -->
+      <div class="form-panel" id="panel-register">
+        <div class="form-header">
+          <p class="eyebrow" data-i18n="reg_eyebrow">Միացեք մեզ</p>
+          <h3 data-i18n="reg_h3">Ստեղծեք ձեր հաշիվը</h3>
+        </div>
+        <!-- Real Google Sign-In button for registration (same GIS flow) -->
+        <div id="google-btn-register" style="display:flex;justify-content:center;margin-bottom:1rem;"></div>
+        <div class="divider"><span data-i18n="reg_or">կամ ստեղծեք հաշիվ էլ. հասցեով</span></div>
+        <div class="field-row">
+          <div class="field">
+            <label data-i18n="reg_firstname">Անուն</label>
+            <input type="text" placeholder="Petros" />
+          </div>
+          <div class="field">
+            <label data-i18n="reg_lastname">Ազգանուն</label>
+            <input type="text" placeholder="Petrosyan" />
+          </div>
+        </div>
+        <div class="field">
+          <label data-i18n="login_email">Էլ. հասցե</label>
+          <input type="email" id="reg-email" placeholder="you@email.com" />
+        </div>
+        <div class="field">
+          <label data-i18n="login_password">Գաղտնաբառ</label>
+          <input type="password" id="reg-password" placeholder="Minimum 8 characters" />
+        </div>
+        <button class="btn-submit" onclick="register()" data-i18n="reg_btn">Ստեղծել հաշիվ</button>
+        <p class="terms">
+          <span data-i18n="reg_terms">Ստեղծելով հաշիվ՝ դուք ընդունում եք մեր</span>
+          <a href="terms&amp;conditions.html" data-i18n="reg_terms_link1">Ծառայությունների պայմանները</a>
+          <span data-i18n="reg_and">և</span>
+          <a href="terms&amp;conditions.html" data-i18n="reg_terms_link2">Գաղտնիության քաղաքականությունը</a>.<br>
+          <span data-i18n="reg_have_acc">Արդեն ունե՞ք հաշիվ</span>
+          <a href="#" onclick="switchTab('login'); return false;" data-i18n="reg_login">Մուտք գործել</a>
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="i18n.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+package com.example.shop.entity;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.*;
+
+@Entity
+@Table(name = "users")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column
+    @JsonIgnore
+    private String password;
+
+    @Column
+    private String name;
+
+    @Column(unique = true)
+    private String googleId;
+}

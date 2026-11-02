@@ -1,0 +1,348 @@
+ /* ─── TOKENS ─────────────────────────────────────── */
+    :root {
+      --cream:     #F5ECD7;
+      --vanilla:   #E8D5B7;
+      --caramel:   #C9A87C;
+      --mocha:     #8B5E3C;
+      --espresso:  #2C1A0E;
+      --sand:      #D4B896;
+      --toffee:    #A67C52;
+      --honey:     #E8C99A;
+      --parchment: #F0E6D3;
+ 
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body:    'Jost', sans-serif;
+    }
+ 
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+ 
+    body {
+      font-family: var(--font-body);
+      font-weight: 300;
+      background: var(--espresso);
+      color: var(--espresso);
+      display: flex;
+      min-height: 100vh;
+    }
+ 
+    /* ─── LEFT PANEL ─────────────────────────────────── */
+    .left-panel {
+      width: 45%;
+      background: var(--espresso);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+ 
+    /* Decorative rings */
+    .left-panel::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      border: 1px solid rgba(201,168,124,0.12);
+      bottom: -150px; left: -150px;
+    }
+    .left-panel::after {
+      content: '';
+      position: absolute;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      border: 1px solid rgba(201,168,124,0.08);
+      bottom: -80px; left: -80px;
+    }
+ 
+    .left-logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      color: var(--cream);
+      text-decoration: none;
+      position: relative;
+      z-index: 1;
+    }
+    .left-logo span { color: var(--caramel); font-style: italic; }
+ 
+    .left-content {
+      position: relative;
+      z-index: 1;
+    }
+    .left-content h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    .left-content h2 em {
+      font-style: italic;
+      color: var(--caramel);
+    }
+    .left-content p {
+      font-size: 0.875rem;
+      color: var(--sand);
+      line-height: 1.8;
+      max-width: 300px;
+    }
+ 
+    /* Small scent tags */
+    .scent-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 2rem;
+    }
+    .scent-tag {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem;
+      border: 1px solid rgba(201,168,124,0.25);
+      border-radius: 100px;
+      color: var(--caramel);
+    }
+ 
+    .left-footer {
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      color: var(--mocha);
+      position: relative;
+      z-index: 1;
+    }
+ 
+    /* ─── RIGHT PANEL ─────────────────────────────────── */
+    .right-panel {
+      flex: 1;
+      background: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2rem;
+      position: relative;
+    }
+ 
+    /* Subtle texture overlay */
+    .right-panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at top right, var(--vanilla) 0%, transparent 60%);
+      pointer-events: none;
+    }
+ 
+    .form-box {
+      width: 100%;
+      max-width: 420px;
+      position: relative;
+      z-index: 1;
+    }
+ 
+    /* ─── TABS ───────────────────────────────────────── */
+    .tabs {
+      display: flex;
+      background: var(--vanilla);
+      border-radius: 100px;
+      padding: 4px;
+      margin-bottom: 2.5rem;
+    }
+ 
+    .tab-btn {
+      flex: 1;
+      padding: 0.65rem;
+      border: none;
+      border-radius: 100px;
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      background: transparent;
+      color: var(--mocha);
+      transition: all 0.25s;
+    }
+    .tab-btn.active {
+      background: var(--espresso);
+      color: var(--cream);
+    }
+ 
+    /* ─── FORM HEADER ────────────────────────────────── */
+    .form-header {
+      margin-bottom: 2rem;
+    }
+    .form-header .eyebrow {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--toffee);
+      margin-bottom: 0.5rem;
+    }
+    .form-header h3 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--espresso);
+      line-height: 1.2;
+    }
+ 
+    /* ─── GOOGLE BUTTON ──────────────────────────────── */
+    .btn-google {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 0.85rem;
+      background: white;
+      border: 1.5px solid var(--sand);
+      border-radius: 100px;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      color: var(--espresso);
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-bottom: 1.5rem;
+    }
+    .btn-google:hover {
+      border-color: var(--caramel);
+      box-shadow: 0 4px 16px rgba(44,26,14,0.08);
+    }
+    .btn-google svg { flex-shrink: 0; }
+ 
+    /* ─── DIVIDER ────────────────────────────────────── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--vanilla);
+    }
+    .divider span {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mocha);
+      opacity: 0.6;
+      white-space: nowrap;
+    }
+ 
+    /* ─── FIELDS ─────────────────────────────────────── */
+    .field {
+      margin-bottom: 1.1rem;
+    }
+    .field label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mocha);
+      margin-bottom: 0.45rem;
+    }
+    .field input {
+      width: 100%;
+      padding: 0.85rem 1.25rem;
+      border: 1.5px solid var(--vanilla);
+      border-radius: 10px;
+      background: white;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--espresso);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .field input:focus {
+      border-color: var(--caramel);
+      box-shadow: 0 0 0 3px rgba(201,168,124,0.12);
+    }
+    .field input::placeholder { color: var(--sand); }
+ 
+    /* Name fields side by side */
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+ 
+    /* ─── FORGOT ─────────────────────────────────────── */
+    .forgot {
+      text-align: right;
+      margin-top: -0.6rem;
+      margin-bottom: 1.1rem;
+    }
+    .forgot a {
+      font-size: 0.75rem;
+      color: var(--toffee);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .forgot a:hover { color: var(--mocha); }
+ 
+    /* ─── SUBMIT BUTTON ──────────────────────────────── */
+    .btn-submit {
+      width: 100%;
+      padding: 1rem;
+      background: var(--espresso);
+      color: var(--cream);
+      border: none;
+      border-radius: 100px;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.25s;
+      margin-top: 0.5rem;
+    }
+    .btn-submit:hover {
+      background: var(--mocha);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(44,26,14,0.2);
+    }
+ 
+    /* ─── TERMS ──────────────────────────────────────── */
+    .terms {
+      margin-top: 1.25rem;
+      font-size: 0.72rem;
+      color: var(--mocha);
+      text-align: center;
+      line-height: 1.6;
+      opacity: 0.7;
+    }
+    .terms a { color: var(--toffee); text-decoration: none; }
+    .terms a:hover { text-decoration: underline; }
+ 
+    /* ─── PANEL SWITCH ANIMATION ─────────────────────── */
+    .form-panel { display: none; }
+    .form-panel.active { display: block; animation: fadeUp 0.3s ease; }
+ 
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+ 
+    /* ─── RESPONSIVE ─────────────────────────────────── */
+    @media (max-width: 768px) {
+      body { flex-direction: column; }
+      .left-panel { width: 100%; padding: 2rem; min-height: auto; }
+      .left-content h2 { font-size: 2rem; }
+      .left-content p, .scent-tags, .left-footer { display: none; }
+      .left-panel::before, .left-panel::after { display: none; }
+      .right-panel { padding: 2rem 1.5rem; }
+    }
